@@ -1,4 +1,4 @@
-# 2022-ISBA-BNPCI
+# 2023-ENAR-BNPCI
 Github repo for the BNP Causal Inference short course.
 
 - `BART-Illustration.R` illustrates the BART methodology in a non-causal setting, using the `dbarts` package.
@@ -11,15 +11,16 @@ Github repo for the BNP Causal Inference short course.
 
 - `meps2011.csv` is a subset of the MEPS dataset.
 
-- `ISBA_2022_slides.pdf` contain the slides.
+- `ENAR_2023_slides.pdf` contain the slides.
 
-- This code requires the `dbarts`, `bcf`, `SoftBart`, and `BartMediate` packages to run. The packages `dbarts` and `bcf` are available on CRAN, while `SoftBart` and `BartMediate` are on GitHub at www.github.com/theodds/SoftBart and www.github.com/theodds/BartMediate respectively.
+- This code requires the `dbarts`, `bcf`, `SoftBart`, and `BartMediate` packages to run. The packages `dbarts` and `bcf` are available on CRAN, while `SoftBart` and `BartMediate` are on GitHub at https://github.com/theodds/SoftBart and https://github.com/theodds/BartMediate respectively. The package `BNPqte` used in the notes to perform Bayesian nonparametric causal inference on quantile effects is available at [https://github.com/chujiluo/BNPqte](https://github.com/chujiluo/BNPqte).
+    
 
 # Bibliography
 
 ## Forthcoming Book
 
-- Daniels, M.J., Linero, A.R., and Roy, J.A. (2022+) Bayesian Nonparametrics for Causal Inference and Missing Data, CRC Press/Chapman & Hall.
+- Daniels, M.J., Linero, A.R., and Roy, J.A. (2023+) Bayesian Nonparametrics for Causal Inference and Missing Data, CRC Press/Chapman & Hall.
 
 ## BART
 
