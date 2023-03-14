@@ -13,7 +13,7 @@ Github repo for the BNP Causal Inference short course.
 
 - `ENAR_2023_slides.pdf` contain the slides.
 
-- This code requires the `dbarts`, `bcf`, `SoftBart`, and `BartMediate` packages to run. The packages `dbarts` and `bcf` are available on CRAN, while `SoftBart` and `BartMediate` are on GitHub at https://github.com/theodds/SoftBart and https://github.com/theodds/BartMediate respectively. The package `BNPqte` used in the notes to perform Bayesian nonparametric causal inference on quantile effects is available at [https://github.com/chujiluo/BNPqte](https://github.com/chujiluo/BNPqte).
+- This code requires the `dbarts`, `bcf`, `tidyverse`, `scales`, `SoftBart`, and `BartMediate` packages to run. The packages `dbarts`, `bcf`, and `SoftBart` are available on CRAN, while and `BartMediate` is on GitHub at [https://github.com/theodds/BartMediate](https://github.com/theodds/BartMediate). The package `BNPqte` used in the notes to perform Bayesian nonparametric causal inference on quantile effects is available at [https://github.com/chujiluo/BNPqte](https://github.com/chujiluo/BNPqte).
     
 
 # Bibliography

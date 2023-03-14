@@ -3,20 +3,21 @@
 library(dbarts)
 library(SoftBart)
 library(tidyverse)
+library(scales)
 
 ## Simulation Experiment ----
 
 sim_data <- tibble(x = seq(from = 0, to = 1, length = 300)) %>%
   mutate(y = sin(2 * pi * x) + 0.1 * rnorm(length(x)))
 
-sim_bart <- bart(sin_data$x, sin_data$y, verbose = FALSE)
+sim_bart <- bart(sim_data$x, sim_data$y, verbose = FALSE)
 
 ## Get posterior mean and confidence band ----
 
-mu_hat       <- sin_bart$yhat.train.mean
-lcl          <- apply(sin_bart$yhat.train, 2, function(x) quantile(x, 0.025))
-ucl          <- apply(sin_bart$yhat.train, 2, function(x) quantile(x, 0.975))
-sin_fit_data <- sin_data %>% mutate(mu_hat = mu_hat, lcl = lcl, ucl = ucl)
+mu_hat       <- sim_bart$yhat.train.mean
+lcl          <- apply(sim_bart$yhat.train, 2, function(x) quantile(x, 0.025))
+ucl          <- apply(sim_bart$yhat.train, 2, function(x) quantile(x, 0.975))
+sin_fit_data <- sim_data %>% mutate(mu_hat = mu_hat, lcl = lcl, ucl = ucl)
 
 ggplot(sin_fit_data, aes(x = x)) + geom_point(aes(y = y)) +
   geom_line(aes(y = mu_hat), color = 'green', size = 2) +
@@ -26,7 +27,7 @@ ggplot(sin_fit_data, aes(x = x)) + geom_point(aes(y = y)) +
 
 ## Assess mixing ----
 
-mixing_data <- tibble(sigma = sin_bart$sigma)
+mixing_data <- tibble(sigma = sim_bart$sigma)
 
 qplot(1:length(sigma), sigma, data = mixing_data, geom = "line")
 
@@ -34,7 +35,7 @@ qplot(1:length(sigma), sigma, data = mixing_data, geom = "line")
 
 set.seed(1234)
 
-f_fried <- function(x) 10 * sin(pi * x[,1] * x[,2]) + 20 * (x[,3] - 0.5)^2 + 
+f_fried <- function(x) 10 * sin(pi * x[,1] * x[,2]) + 20 * (x[,3] - 0.5)^2 +
                        10 * x[,4] + 5 * x[,5]
 
 gen_data <- function(n_train, n_test, P, sigma) {
@@ -55,17 +56,17 @@ sim_data <- gen_data(250, 100, 1000, 1)
 hypers <- Hypers(sim_data$X, sim_data$Y, num_tree = 50)
 opts   <- Opts(num_burn = 5000, num_save = 5000)
 
-fit <- softbart(X = sim_data$X, 
-                Y = sim_data$Y, 
-                X_test = sim_data$X_test, 
+fit <- softbart(X = sim_data$X,
+                Y = sim_data$Y,
+                X_test = sim_data$X_test,
                 hypers = hypers,
                 opts = opts)
 
 ## Automatic relevance determination ----
 
 posterior_inclusion_probs <- colMeans(fit$var_counts > 0)
-plot(posterior_inclusion_probs, 
-     col = ifelse(posterior_inclusion_probs > 0.5, 
-                  muted("blue"), 
-                  muted("green")), 
+plot(posterior_inclusion_probs,
+     col = ifelse(posterior_inclusion_probs > 0.5,
+                  scales::muted("blue"),
+                  scales::muted("green")),
      pch = 20)
